@@ -1,27 +1,40 @@
-import React from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Skills from './components/Skills';
-import Projects from './components/Projects';
-import Experience from './components/Experience';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import Design from './components/Design'; // Assuming you have a Design component
-function App() {
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import About from "./components/About";
+import Skills from "./components/Skills";
+import Projects from "./components/Projects";
+import Experience from "./components/Experience";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
+
+import DesignShowcase from "./pages/DesignShowcase";
+
+export default function App() {
   return (
-    <div className="bg-[#02020A] text-white min-h-screen">
-      <Navbar />
-      <Hero />
-      <About />
-      <Skills />
-      <Experience />
-      <Projects />
-      <Contact />
-      <Footer />
-      {/* Your other sections here */}
-    </div>
+    <Router>
+      <div className="bg-[#02020A] text-white min-h-screen">
+        <Navbar />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Hero id="home" />
+                <About id="about-me" />
+                <Skills id="skills" />
+                <Experience id="experience" />
+                <Projects id="projects" />
+                <Contact id="contact" />
+              </>
+            }
+          />
+          <Route path="/designs" element={<DesignShowcase />} />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
   );
 }
-
-export default App;

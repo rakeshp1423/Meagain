@@ -63,7 +63,7 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" className="bg-[#02020A] text-white py-20 px-6">
+    <section id="contact me" className="bg-[#02020A] text-white py-20 px-6">
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
         {/* Left Side - Intro + Social Links */}
         <motion.div

@@ -1,34 +1,63 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-// Match section IDs
-const navLinks = ['Home', 'About Me', 'Skills', 'Experience', 'Projects', 'ContactMe'];
+const navLinks = [
+  { name: 'Home', id: 'home', type: 'anchor' },
+  { name: 'About Me', id: 'about-me', type: 'anchor' },
+  { name: 'Skills', id: 'skills', type: 'anchor' },
+  { name: 'Experience', id: 'experience', type: 'anchor' },
+  { name: 'Projects', id: 'projects', type: 'anchor' },
+  { name: 'Contact Me', id: 'contact', type: 'anchor' },
+  { name: 'Designs', id: '/designs', type: 'route' }
+];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('Home');
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
-      const sections = navLinks.map(link =>
-        document.getElementById(link.toLowerCase())
-      );
+      const sections = navLinks
+        .filter(link => link.type === 'anchor')
+        .map(link => document.getElementById(link.id));
       const scrollPos = window.scrollY + 200;
 
       for (let i = sections.length - 1; i >= 0; i--) {
         if (sections[i] && scrollPos >= sections[i].offsetTop) {
-          setActiveSection(navLinks[i]);
+          setActiveSection(navLinks[i].name);
           break;
         }
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    if (location.pathname === '/') {
+      window.addEventListener('scroll', handleScroll);
+    }
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [location.pathname]);
+
+  const handleNavClick = (link) => {
+    if (link.type === 'anchor') {
+      if (location.pathname !== '/') {
+        navigate(`/#${link.id}`);
+        return;
+      }
+      const section = document.getElementById(link.id);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else if (link.type === 'route') {
+      navigate(link.id);
+    }
+    setIsOpen(false);
+  };
 
   return (
     <nav
@@ -36,33 +65,33 @@ const Navbar = () => {
         scrolled ? 'bg-[#02020A] shadow-md' : 'bg-transparent'
       }`}
     >
-      {/* Google Font Import */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
-        html {
-          scroll-behavior: smooth;
-        }
-        .font-inter {
-          font-family: 'Inter', sans-serif;
-        }
+        html { scroll-behavior: smooth; }
+        .font-inter { font-family: 'Inter', sans-serif; }
       `}</style>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-between">
-        {/* Logo */}
-        <div className="text-2xl font-medium tracking-wide">Rakesh</div>
+        <div
+          className="text-2xl font-medium tracking-wide cursor-pointer"
+          onClick={() => navigate('/')}
+        >
+          Rakesh
+        </div>
 
         {/* Desktop Links */}
         <ul className="hidden md:flex gap-8 text-base font-medium">
           {navLinks.map(link => (
             <li
-              key={link}
+              key={link.name}
               className={`transition duration-200 cursor-pointer ${
-                activeSection === link
+                activeSection === link.name
                   ? 'text-[#14F195]'
                   : 'hover:text-[#14F195]'
               }`}
+              onClick={() => handleNavClick(link)}
             >
-              <a href={`#${link.toLowerCase()}`}>{link}</a>
+              {link.name}
             </li>
           ))}
         </ul>
@@ -75,7 +104,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Slide Menu (Right) */}
+      {/* Mobile Slide Menu */}
       <div
         className={`fixed top-0 right-0 h-full w-64 bg-[#02020A] text-white transform transition-transform duration-300 ease-in-out z-50 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
@@ -91,25 +120,20 @@ const Navbar = () => {
         <ul className="flex flex-col gap-6 p-6 text-base font-medium">
           {navLinks.map(link => (
             <li
-              key={link}
-              className={`transition duration-200 ${
-                activeSection === link
+              key={link.name}
+              className={`transition duration-200 cursor-pointer ${
+                activeSection === link.name
                   ? 'text-[#14F195]'
                   : 'hover:text-[#14F195]'
               }`}
+              onClick={() => handleNavClick(link)}
             >
-              <a
-                href={`#${link.toLowerCase()}`}
-                onClick={() => setIsOpen(false)}
-              >
-                {link}
-              </a>
+              {link.name}
             </li>
           ))}
         </ul>
       </div>
 
-      {/* Backdrop */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40"
