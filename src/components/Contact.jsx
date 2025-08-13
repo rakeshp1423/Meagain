@@ -48,17 +48,17 @@ export default function Contact() {
     {
       icon: <FaLinkedin size={28} />,
       label: "LinkedIn",
-      url: "https://linkedin.com/in/your-linkedin",
+      url: "https://www.linkedin.com/in/rakesh-kpatra/",
     },
     {
       icon: <FaGithub size={28} />,
       label: "GitHub",
-      url: "https://github.com/your-github",
+      url: "https://github.com/rakeshp1423",
     },
     {
       icon: <FaEnvelope size={28} />,
       label: "Email Me",
-      url: "mailto:your-email@example.com",
+      url: "mailto:rrakeshkuma1423@gmail.com",
     },
   ];
 

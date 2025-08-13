@@ -5,10 +5,10 @@ import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaChevronDown } from "reac
 import { motion } from "framer-motion";
 
 const socialLinks = [
-  { icon: <FaGithub />, link: "https://github.com/yourusername" },
-  { icon: <FaLinkedin />, link: "https://linkedin.com/in/yourusername" },
-  { icon: <FaTwitter />, link: "https://twitter.com/yourusername" },
-  { icon: <FaEnvelope />, link: "mailto:youremail@example.com" },
+  { icon: <FaGithub />, link: "https://github.com/rakeshp1423" },
+  { icon: <FaLinkedin />, link: "https://www.linkedin.com/in/rakesh-kpatra/" },
+  { icon: <FaTwitter />, link: "https://x.com/KumarRakesh1423" },
+  { icon: <FaEnvelope />, link: "mailto:rrakeshkuma1423@gmail.com" },
 ];
 
 const Hero = () => {
@@ -34,7 +34,12 @@ const Hero = () => {
           </h1>
           <h2 className="text-lg sm:text-2xl md:text-4xl text-[#14F195] font-semibold mb-3 sm:mb-4 min-h-[2rem]">
             <Typewriter
-              words={["Web Developer", "Frontend Engineer", "React Specialist"]}
+              words={[
+  "Frontend Developer",
+  "UI/UX Designer",
+  "Django Developer"
+]}
+
               loop={0}
               cursor
               cursorStyle="|"
@@ -59,7 +64,7 @@ const Hero = () => {
             </motion.a>
             <motion.a
               whileHover={{ scale: 1.05 }}
-              href="#contact"
+              href="#contact me"
               className="px-4 sm:px-6 py-2 sm:py-3 border border-[#14F195] rounded-lg font-semibold transition-all duration-700 hover:bg-[#14F195] hover:text-black text-sm sm:text-base"
             >
               Contact Me
