@@ -24,11 +24,21 @@ const projects = [
     title: "CollegeTalks",
     description:
       "Built to provide students with a platform to create chat rooms and connect with each other for discussions, collaboration, and community building.",
-    tech: ["React", "Tailwind CSS", "Firebase"],
-    img: "/projects/collegetalks.png",
-    live: "#",
+    tech: ["HTML/CSS", "Django", "Python","MySQL"],
+    img: "/college.png",
+    live: "https://djangoproject-production-7018.up.railway.app/",
     github: "https://github.com/rakeshp1423/djangoProject",
   },
+  {
+  title: "iFly",
+  description:
+    "A flight booking and management platform designed to let users search flights, view live flight news, check delays, and manage their bookings seamlessly.",
+  tech: ["React", "Tailwind CSS", "Django", "Django REST Framework"],
+  img: "/ifly.png",
+  live: "https://i-fly-roan.vercel.app/",
+  github: "https://github.com/rakeshp1423/iFly-",
+},
+
 ];
 
 export default function Projects() {
