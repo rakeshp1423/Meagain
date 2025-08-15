@@ -12,9 +12,9 @@ const experiences = [
     ],
   },
   {
-    title: "Web Developer",
+    title: "Web Developer Intern",
     company: "Bharat Economic Forum",
-    date: "June 14 2024 - August 14 2024",
+    date: "June 2024 - August 2024",
     details: [
       "Created a landing and sales page for the Health & Pharma industry under BEF.",
       "Contributed to the BEF Conclave website creation.",
