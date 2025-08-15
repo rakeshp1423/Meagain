@@ -44,9 +44,12 @@ const Navbar = () => {
   }, [location.pathname]);
 
   const handleNavClick = (link) => {
+    setActiveSection(link.name);
+
     if (link.type === 'anchor') {
       if (location.pathname !== '/') {
         navigate(`/#${link.id}`);
+        setIsOpen(false);
         return;
       }
       const section = document.getElementById(link.id);
@@ -67,11 +70,13 @@ const Navbar = () => {
     >
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { overflow-x: hidden; }
         .font-inter { font-family: 'Inter', sans-serif; }
       `}</style>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-between">
+      <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-between">
+        {/* Logo */}
         <div
           className="text-2xl font-medium tracking-wide cursor-pointer"
           onClick={() => navigate('/')}
@@ -97,9 +102,9 @@ const Navbar = () => {
         </ul>
 
         {/* Mobile Menu Icon */}
-        <div className="md:hidden">
-          <button onClick={() => setIsOpen(true)}>
-            <Menu className="w-6 h-6" />
+        <div className="md:hidden ml-auto">
+          <button onClick={() => setIsOpen(prev => !prev)}>
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </div>
@@ -134,6 +139,7 @@ const Navbar = () => {
         </ul>
       </div>
 
+      {/* Overlay */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40"
