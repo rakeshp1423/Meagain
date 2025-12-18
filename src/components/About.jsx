@@ -1,7 +1,91 @@
-// src/components/About.jsx
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { Download, Briefcase } from "lucide-react";
 
+// --- BACKGROUND COMPONENT (Constellation Effect) ---
+const ParticleNetwork = () => {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    let animationFrameId;
+    let particles = [];
+
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initParticles();
+    };
+
+    const initParticles = () => {
+      particles = [];
+      const particleCount = window.innerWidth < 768 ? 30 : 60; // Fewer particles on mobile
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.5, // Slow velocity
+          vy: (Math.random() - 0.5) * 0.5,
+          size: Math.random() * 2 + 1,
+        });
+      }
+    };
+
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "rgba(100, 255, 218, 0.3)"; // Match #64FFDA
+      ctx.strokeStyle = "rgba(100, 255, 218, 0.1)"; // Faint lines
+
+      // Update and draw particles
+      particles.forEach((p, i) => {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Bounce off edges
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+        // Draw Dot
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Draw Connections
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dx = p.x - p2.x;
+          const dy = p.y - p2.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 100) { // Connection threshold
+            ctx.beginPath();
+            ctx.lineWidth = 1 - distance / 100;
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+          }
+        }
+      });
+
+      animationFrameId = requestAnimationFrame(draw);
+    };
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+    draw();
+
+    return () => {
+      window.removeEventListener("resize", resizeCanvas);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none opacity-50" />;
+};
+
+
+// --- YOUR ORIGINAL COMPONENT ---
 const About = () => {
   const ref = useRef(null);
 
@@ -41,16 +125,22 @@ const About = () => {
     <section
       id="about me"
       ref={ref}
-      className="bg-[#02020A] text-white min-h-screen flex items-center justify-center px-6 md:px-16 overflow-hidden"
+      className="relative bg-[#02020A] text-white min-h-screen flex items-center justify-center px-6 md:px-16 overflow-hidden"
     >
-      <div className="max-w-7xl w-full flex flex-col md:flex-row items-center gap-12">
+      {/* ADDED: Background Element */}
+      <ParticleNetwork />
+
+      {/* Existing Content with Z-Index to stay on top */}
+      <div className="relative z-10 max-w-7xl w-full flex flex-col md:flex-row items-center gap-12">
 
         {/* Sliding Image */}
         <motion.div
           className="w-full md:w-1/2 flex justify-center"
           style={{ x: imgX, opacity: imgOpacity }}
         >
-          <div className="relative p-6 rounded-2xl backdrop-blur-lg bg-white/10 border border-white/20 shadow-lg">
+          <div className="relative p-6 rounded-2xl backdrop-blur-lg bg-white/5 border border-white/10 shadow-lg">
+            {/* Added a subtle glow behind the image frame for aesthetics */}
+            <div className="absolute inset-0 bg-[#64FFDA] blur-[50px] opacity-10 rounded-2xl -z-10"></div>
             <img
               src="/me.png"
               alt="About illustration"
@@ -79,7 +169,7 @@ const About = () => {
 
           {/* Staggered fade-in skills */}
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-400"
+            className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-400 mb-8"
             variants={skillsContainer}
             initial="hidden"
             whileInView="visible"
@@ -97,6 +187,33 @@ const About = () => {
               </motion.div>
             ))}
           </motion.div>
+
+          {/* Action Buttons */}
+          <motion.div 
+            className="flex flex-wrap gap-4"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+          >
+            <a 
+             whileHover={{ scale: 1.05 }}
+              href="/cv.pdf"
+              download
+              className="px-4 sm:px-6 py-2 sm:py-3 bg-[#14F195] text-black rounded-lg font-semibold transition-all duration-300 hover:bg-transparent hover:border hover:text-[#14F195] border border-transparent text-sm sm:text-base"
+            >
+              Download CV
+            </a>
+            
+            <a 
+              href="#projects" 
+              className="flex items-center gap-2 px-6 py-3 border border-[#64FFDA] text-[#64FFDA] font-bold rounded-lg hover:bg-[#64FFDA]/10 transition-all hover:scale-105"
+            >
+              <Briefcase size={20} />
+              View Projects
+            </a>
+          </motion.div>
+
         </motion.div>
       </div>
     </section>

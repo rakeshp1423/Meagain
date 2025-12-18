@@ -1,8 +1,22 @@
 // src/pages/DesignShowcase.jsx
+// src/pages/DesignShowcase.jsx
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
+// lucide-react icons (YOU WERE MISSING THESE)
+import { PenTool, ChevronDown } from "lucide-react";
+
+// react-icons
 import { FaTimes } from "react-icons/fa";
-import { SiFigma, SiAdobephotoshop, SiAdobexd, SiCanva, SiDribbble, SiBehance } from "react-icons/si";
+import {
+  SiFigma,
+  SiAdobephotoshop,
+  SiAdobexd,
+  SiCanva,
+  SiDribbble,
+  SiBehance,
+} from "react-icons/si";
+
 
 // Images
 import heroImg from "/hero.png";
@@ -47,12 +61,45 @@ export default function DesignShowcase() {
   return (
     <div className="bg-[#02020A] text-white">
       {/* Hero Section */}
-      <section className="text-center py-20">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 text-green-500">My Designs</h1>
-        <p className="text-gray-400 max-w-2xl mx-auto">
-          A curated collection of my UI/UX and web design work — blending creativity,
-          usability, and aesthetics.
-        </p>
+      <section className="relative h-[90vh] flex flex-col items-center justify-center overflow-hidden px-6">
+        {/* Background Elements */}
+        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-green-500/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-[-10%] right-[-5%] w-[400px] h-[400px] bg-green-500/5 rounded-full blur-[100px] pointer-events-none" />
+        
+        <div className="text-center z-10 max-w-4xl">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-green-500/30 bg-green-500/5 text-green-400 text-sm font-medium mb-6 backdrop-blur-md"
+          >
+            <PenTool size={14} /> My Designs
+          </motion.div>
+          
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }}
+            className="text-5xl md:text-7xl font-bold tracking-tight mb-6"
+          >
+            Crafting Digital <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-700">
+              Masterpieces
+            </span>
+          </motion.h1>
+
+          <motion.p 
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
+          >
+            A curated collection of pixel-perfect interfaces, user-centric experiences, and modern web aesthetics.
+          </motion.p>
+        </div>
+
+        {/* Scroll Indicator */}
+        <motion.div 
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 1 }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-500"
+        >
+          <span className="text-xs uppercase tracking-widest">Explore</span>
+          <ChevronDown className="animate-bounce text-green-500" />
+        </motion.div>
       </section>
 
       {/* Auto-scroll Carousel */}
