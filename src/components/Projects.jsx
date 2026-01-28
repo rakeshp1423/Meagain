@@ -39,6 +39,15 @@ const projects = [
     live: "https://i-fly-roan.vercel.app/",
     github: "https://github.com/rakeshp1423/iFly-",
   },
+  {
+    title: "TheMenu : Restaurant App",
+    description:
+      "Book tables and explore menus at local restaurants.",
+    tech: ["HTML/CSS", "Django", "Python", "MySQL"],
+    img: "/thecafe1.png",
+    live: "https://rakeshp1423.github.io/something/",
+    github: "https://github.com/rakeshp1423/Cafe-Management-",
+  },
 ];
 
 export default function Projects() {

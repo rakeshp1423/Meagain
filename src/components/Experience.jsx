@@ -21,6 +21,18 @@ const experiences = [
       "Led a team of developers to fix bugs.",
     ],
   },
+  {
+  title: "SDE Intern",
+  company: "Kalinga Vriti",
+  date: "November 2024 - Present",
+  details: [
+    "Worked as part of the development team on core web and application features.",
+    "Designed and developed responsive web pages and application modules.",
+    "Debugged and fixed issues across frontend components to improve performance and stability.",
+    "Collaborated with designers and developers to implement new features and enhancements.",
+  ],
+},
+
 ];
 
 const Experience = () => {
