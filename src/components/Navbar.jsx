@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 const navLinks = [
   { name: 'Home', id: 'home', type: 'anchor' },
-  { name: 'About Me', id: 'about-me', type: 'anchor' },
+  { name: 'About Me', id: 'about me', type: 'anchor' },
   { name: 'Skills', id: 'skills', type: 'anchor' },
   { name: 'Experience', id: 'experience', type: 'anchor' },
   { name: 'Projects', id: 'projects', type: 'anchor' },

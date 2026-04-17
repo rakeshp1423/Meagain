@@ -45,7 +45,7 @@ const projects = [
       "Book tables and explore menus at local restaurants.",
     tech: ["HTML/CSS", "Django", "Python", "MySQL"],
     img: "/thecafe1.png",
-    live: "https://rakeshp1423.github.io/something/",
+    live: "https://themenu-l98t.onrender.com/",
     github: "https://github.com/rakeshp1423/Cafe-Management-",
   },
 ];
